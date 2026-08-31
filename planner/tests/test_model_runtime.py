@@ -20,7 +20,7 @@ def model_path(tmp_path: Path) -> Path:
   <worldbody>
     <geom name="floor" type="plane" size="1 1 .1"/>
     <body name="item" pos="0 0 .2">
-      <freejoint/>
+      <freejoint name="item_joint"/>
       <geom name="item_geom" type="box" size=".1 .1 .1"/>
     </body>
   </worldbody>
@@ -59,6 +59,7 @@ def test_mirrors_state_and_reports_native_contacts(model_path: Path) -> None:
     assert report["contactCount"] >= 1
     assert report["contacts"][0]["body2_name"] == "item"
     assert report["bodies"]["item"]["position"][2] == pytest.approx(0.05)
+    assert report["bodies"]["item"]["quaternion"] == pytest.approx([0.0, 0.0, 0.0, 1.0])
 
 
 def test_reports_unknown_body(model_path: Path) -> None:
@@ -82,3 +83,18 @@ def test_body_name_falls_back_for_unnamed_world(model_path: Path) -> None:
 
     assert runtime.body_name(0) == "world"
     assert mujoco.mj_name2id(runtime.model, mujoco.mjtObj.mjOBJ_BODY, "item") == 1
+
+
+def test_describes_live_body_geometry_and_joint_frames(model_path: Path) -> None:
+    runtime = ModelRuntime.load(model_path)
+
+    report = runtime.manipulation_geometry(
+        body_names=["item"],
+        joint_names=["item_joint"],
+    )
+
+    assert report["bodies"]["item"]["position"][2] == pytest.approx(0.2)
+    assert report["bodies"]["item"]["geoms"][0]["contype"] == 1
+    assert len(report["bodies"]["item"]["geoms"][0]["axes"]) == 3
+    assert report["joints"]["item_joint"]["type"] == "free"
+    assert len(report["joints"]["item_joint"]["anchor"]) == 3

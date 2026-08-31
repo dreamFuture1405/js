@@ -1,4 +1,4 @@
-export function installAxisAutonomyBridge(config = {}) {
+export function installAxisAutonomyBridge(config = {}, helpers = {}) {
   window.__axisAutonomyV3Bridge?.destroy?.();
   const demo = window.__axisAutomationDemo;
   const session = window.__axisAutomationSession;
@@ -9,6 +9,10 @@ export function installAxisAutonomyBridge(config = {}) {
   const model = demo.model;
   const data = demo.data;
   const controller = demo.ikController;
+  const evaluateJointTargetProgress = helpers.evaluateJointTargetProgress;
+  if (typeof evaluateJointTargetProgress !== 'function') {
+    throw new Error('Joint target tracking helper is required');
+  }
   const sleep = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
   const bodyNameToId = new Map();
   const jointNameToId = new Map();
@@ -164,7 +168,12 @@ export function installAxisAutonomyBridge(config = {}) {
     snapshotId,
     chunkId,
     jointTargets,
-    stepMilliseconds = 32,
+    pollMilliseconds = 32,
+    targetToleranceRadians = 0.028,
+    minimumProgressRadians = 0.0015,
+    noProgressLimit = 12,
+    maximumTargetMilliseconds = 1800,
+    mode = 'forward',
   }) => {
     if (destroyed) throw new Error('Axis autonomy bridge has been destroyed');
     if (activeCommand) throw new Error(`Bridge is already executing ${activeCommand.chunkId}`);
@@ -178,22 +187,70 @@ export function installAxisAutonomyBridge(config = {}) {
     ))) {
       throw new Error('Chunk joint target dimensions do not match the robot');
     }
-    abortRequested = false;
+    if (abortRequested) throw new Error('AUTONOMY_ABORTED');
     activeCommand = {
       planId: String(planId),
       snapshotId: String(snapshotId),
       chunkId: String(chunkId),
+      mode: String(mode),
       targetCount: jointTargets.length,
       targetIndex: 0,
+      trackingErrorRadians: null,
+      noProgressCount: 0,
       startedAt: performance.now(),
     };
+    const executedTargets = [];
     try {
       for (let index = 0; index < jointTargets.length; index += 1) {
-        if (abortRequested) throw new Error('AUTONOMY_ABORTED');
+        const target = jointTargets[index].map(Number);
+        const targetStartedAt = performance.now();
+        let bestError = Number.POSITIVE_INFINITY;
+        let noProgressCount = 0;
         activeCommand.targetIndex = index + 1;
-        demo.markPolicyHumanInput?.();
-        controller.writeJointTargetsToCtrl(new Float64Array(jointTargets[index]));
-        await sleep(Math.max(16, Math.min(100, Number(stepMilliseconds) || 32)));
+        while (true) {
+          if (abortRequested) throw new Error('AUTONOMY_ABORTED');
+          demo.markPolicyHumanInput?.();
+          controller.writeJointTargetsToCtrl(new Float64Array(target));
+          await sleep(Math.max(16, Math.min(100, Number(pollMilliseconds) || 32)));
+          const measured = robotJoints.map(
+            (joint) => Number(data.qpos[joint.qposAddress]),
+          );
+          const tracking = evaluateJointTargetProgress({
+            target,
+            measured,
+            bestError,
+            noProgressCount,
+            elapsedMilliseconds: performance.now() - targetStartedAt,
+            targetToleranceRadians,
+            minimumProgressRadians,
+            noProgressLimit,
+            maximumTargetMilliseconds,
+          });
+          bestError = tracking.bestError;
+          noProgressCount = tracking.noProgressCount;
+          activeCommand.trackingErrorRadians = tracking.errorRadians;
+          activeCommand.noProgressCount = tracking.noProgressCount;
+          if (tracking.reached) {
+            executedTargets.push(target);
+            break;
+          }
+          if (tracking.stopReason) {
+            return {
+              completed: false,
+              stopReason: tracking.stopReason,
+              planId: activeCommand.planId,
+              snapshotId: activeCommand.snapshotId,
+              chunkId: activeCommand.chunkId,
+              failedTargetIndex: index,
+              trackingErrorRadians: tracking.errorRadians,
+              elapsedMilliseconds: Math.round(
+                performance.now() - activeCommand.startedAt,
+              ),
+              executedTargets,
+              observation: observe(),
+            };
+          }
+        }
       }
       return {
         completed: true,
@@ -201,6 +258,7 @@ export function installAxisAutonomyBridge(config = {}) {
         snapshotId: activeCommand.snapshotId,
         chunkId: activeCommand.chunkId,
         elapsedMilliseconds: Math.round(performance.now() - activeCommand.startedAt),
+        executedTargets,
         observation: observe(),
       };
     } finally {
@@ -208,11 +266,55 @@ export function installAxisAutonomyBridge(config = {}) {
       activeCommand = null;
     }
   };
+  const setGripper = async ({
+    closed,
+    timeoutMilliseconds = 1800,
+    settleMilliseconds = 120,
+  }) => {
+    if (destroyed) throw new Error('Axis autonomy bridge has been destroyed');
+    if (activeCommand) throw new Error(`Bridge is already executing ${activeCommand.chunkId}`);
+    if (abortRequested) throw new Error('AUTONOMY_ABORTED');
+    const targetClosed = Boolean(closed);
+    demo.setGripperState(targetClosed);
+    const startedAt = performance.now();
+    while (
+      demo.gripperAnimating
+      && performance.now() - startedAt < Math.max(100, Number(timeoutMilliseconds) || 1800)
+    ) {
+      if (abortRequested) throw new Error('AUTONOMY_ABORTED');
+      await sleep(32);
+    }
+    if (demo.gripperAnimating || Boolean(demo.gripperClosed) !== targetClosed) {
+      stopMotion();
+      return {
+        completed: false,
+        stopReason: 'GRIPPER_TIMEOUT',
+        closed: Boolean(demo.gripperClosed),
+        elapsedMilliseconds: Math.round(performance.now() - startedAt),
+        observation: observe(),
+      };
+    }
+    await sleep(Math.max(0, Math.min(500, Number(settleMilliseconds) || 120)));
+    return {
+      completed: true,
+      closed: Boolean(demo.gripperClosed),
+      elapsedMilliseconds: Math.round(performance.now() - startedAt),
+      observation: observe(),
+    };
+  };
 
   const api = {
     observe,
     executeChunk,
+    setGripper,
     stopMotion,
+    beginRun() {
+      if (activeCommand) {
+        throw new Error(`Bridge is already executing ${activeCommand.chunkId}`);
+      }
+      abortRequested = false;
+      return { ready: true };
+    },
     abort() {
       abortRequested = true;
       stopMotion();

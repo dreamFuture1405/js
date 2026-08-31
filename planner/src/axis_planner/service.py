@@ -25,6 +25,12 @@ def _float_list(value: object, label: str) -> list[float]:
     return [float(item) for item in value]
 
 
+def _optional_float_list(value: object, label: str) -> list[float] | None:
+    if value is None:
+        return None
+    return _float_list(value, label)
+
+
 def _string_list(value: object, label: str) -> list[str]:
     if value is None:
         return []
@@ -73,6 +79,78 @@ class PlannerService:
                     ctrl=_float_list(simulation["ctrl"], "simulation.ctrl"),
                 )
                 result = runtime.mirror_report(_string_list(params.get("bodyNames"), "bodyNames"))
+            elif method == "describe_geometry":
+                runtime = self._runtime()
+                result = runtime.manipulation_geometry(
+                    body_names=_string_list(params.get("bodyNames"), "bodyNames"),
+                    joint_names=_string_list(params.get("jointNames"), "jointNames"),
+                )
+            elif method == "solve_ik":
+                runtime = self._runtime()
+                result = runtime.solve_body_ik(
+                    body_name=str(params["bodyName"]),
+                    joint_names=_string_list(params.get("jointNames"), "jointNames"),
+                    target_position=_float_list(
+                        params["targetPosition"],
+                        "targetPosition",
+                    ),
+                    target_quaternion=_optional_float_list(
+                        params.get("targetQuaternion"),
+                        "targetQuaternion",
+                    ),
+                    seed=_optional_float_list(params.get("seed"), "seed"),
+                    maximum_iterations=int(params.get("maximumIterations", 240)),
+                    position_tolerance=float(params.get("positionTolerance", 0.003)),
+                    orientation_tolerance=float(params.get("orientationTolerance", 0.03)),
+                    damping=float(params.get("damping", 0.04)),
+                    maximum_joint_step=float(params.get("maximumJointStep", 0.16)),
+                ).to_dict()
+            elif method == "validate_path":
+                runtime = self._runtime()
+                result = runtime.validate_robot_path(
+                    joint_names=_string_list(params.get("jointNames"), "jointNames"),
+                    start=_float_list(params["start"], "start"),
+                    goal=_float_list(params["goal"], "goal"),
+                    maximum_joint_step=float(params.get("maximumJointStep", 0.05)),
+                    allowed_body_names=_string_list(
+                        params.get("allowedBodyNames"),
+                        "allowedBodyNames",
+                    ),
+                ).to_dict()
+            elif method == "check_configuration":
+                runtime = self._runtime()
+                result = {
+                    "collisions": [
+                        collision.to_dict()
+                        for collision in runtime.robot_configuration_collisions(
+                            joint_names=_string_list(
+                                params.get("jointNames"),
+                                "jointNames",
+                            ),
+                            joints=_float_list(params["joints"], "joints"),
+                            allowed_body_names=_string_list(
+                                params.get("allowedBodyNames"),
+                                "allowedBodyNames",
+                            ),
+                        )
+                    ]
+                }
+            elif method == "plan_path":
+                runtime = self._runtime()
+                result = runtime.plan_robot_path(
+                    joint_names=_string_list(params.get("jointNames"), "jointNames"),
+                    start=_float_list(params["start"], "start"),
+                    goal=_float_list(params["goal"], "goal"),
+                    maximum_joint_step=float(params.get("maximumJointStep", 0.05)),
+                    allowed_body_names=_string_list(
+                        params.get("allowedBodyNames"),
+                        "allowedBodyNames",
+                    ),
+                    rrt_step=float(params.get("rrtStep", 0.18)),
+                    maximum_iterations=int(params.get("maximumIterations", 1200)),
+                    goal_bias=float(params.get("goalBias", 0.2)),
+                    random_seed=int(params.get("randomSeed", 1)),
+                ).to_dict()
             else:
                 raise ValueError(f"Unknown planner method: {method}")
             return {"id": request_id, "ok": True, "result": result}

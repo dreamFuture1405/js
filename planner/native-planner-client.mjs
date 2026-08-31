@@ -4,10 +4,15 @@ import path from 'node:path';
 export function defaultPlannerProcess({
   projectRoot,
   requestTimeoutMilliseconds = 10_000,
+  environment = process.env,
+  platform = process.platform,
 } = {}) {
   const root = path.resolve(projectRoot ?? '.');
+  const virtualEnvironmentPython = platform === 'win32'
+    ? path.join(root, '.venv', 'Scripts', 'python.exe')
+    : path.join(root, '.venv', 'bin', 'python');
   return {
-    command: path.join(root, '.venv', 'Scripts', 'python.exe'),
+    command: environment.AXIS_PLANNER_PYTHON || virtualEnvironmentPython,
     args: ['-m', 'axis_planner.service'],
     cwd: root,
     requestTimeoutMilliseconds,
@@ -91,6 +96,94 @@ export class NativePlannerClient {
     return this.request('mirror_state', {
       simulation: snapshot.simulation,
       bodyNames,
+    });
+  }
+
+  async describeGeometry({
+    bodyNames = [],
+    jointNames = [],
+  } = {}) {
+    return this.request('describe_geometry', {
+      bodyNames,
+      jointNames,
+    });
+  }
+
+  async solveIk({
+    bodyName,
+    jointNames,
+    targetPosition,
+    targetQuaternion = null,
+    seed = null,
+    maximumIterations,
+    positionTolerance,
+    orientationTolerance,
+    damping,
+    maximumJointStep,
+  }) {
+    return this.request('solve_ik', {
+      bodyName,
+      jointNames,
+      targetPosition,
+      ...(targetQuaternion == null ? {} : { targetQuaternion }),
+      ...(seed == null ? {} : { seed }),
+      ...(maximumIterations == null ? {} : { maximumIterations }),
+      ...(positionTolerance == null ? {} : { positionTolerance }),
+      ...(orientationTolerance == null ? {} : { orientationTolerance }),
+      ...(damping == null ? {} : { damping }),
+      ...(maximumJointStep == null ? {} : { maximumJointStep }),
+    });
+  }
+
+  async validatePath({
+    jointNames,
+    start,
+    goal,
+    maximumJointStep,
+    allowedBodyNames = [],
+  }) {
+    return this.request('validate_path', {
+      jointNames,
+      start,
+      goal,
+      ...(maximumJointStep == null ? {} : { maximumJointStep }),
+      allowedBodyNames,
+    });
+  }
+
+  async checkConfiguration({
+    jointNames,
+    joints,
+    allowedBodyNames = [],
+  }) {
+    return this.request('check_configuration', {
+      jointNames,
+      joints,
+      allowedBodyNames,
+    });
+  }
+
+  async planPath({
+    jointNames,
+    start,
+    goal,
+    maximumJointStep,
+    allowedBodyNames = [],
+    rrtStep,
+    maximumIterations,
+    goalBias,
+    randomSeed,
+  }) {
+    return this.request('plan_path', {
+      jointNames,
+      start,
+      goal,
+      ...(maximumJointStep == null ? {} : { maximumJointStep }),
+      allowedBodyNames,
+      ...(rrtStep == null ? {} : { rrtStep }),
+      ...(maximumIterations == null ? {} : { maximumIterations }),
+      ...(goalBias == null ? {} : { goalBias }),
+      ...(randomSeed == null ? {} : { randomSeed }),
     });
   }
 
