@@ -1,0 +1,68 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "axis-planner"
+version = "0.1.0"
+description = "External MuJoCo planning runtime for Axis Autonomy V3"
+requires-python = ">=3.12"
+dependencies = [
+  "mujoco==3.12.0",
+  "numpy>=2.4,<3",
+]
+
+[project.optional-dependencies]
+dev = [
+  "black>=26.5",
+  "mypy>=2.3",
+  "pytest>=9",
+  "pytest-cov>=7",
+  "ruff>=0.16",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "C4", "UP"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = ["mujoco", "mujoco.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+addopts = [
+  "-ra",
+  "--strict-config",
+  "--cov=axis_planner",
+  "--cov-report=term-missing",
+  "--cov-fail-under=90",
+]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.coverage.run]
+branch = true
+source = ["axis_planner"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "if __name__ == .__main__.:",
+  "raise AssertionError",
+]

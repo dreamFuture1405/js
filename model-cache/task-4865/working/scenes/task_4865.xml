@@ -1,0 +1,286 @@
+<mujoco model="task25_franka___put_the_glue_tube_into_the_micr">
+  <compiler angle="radian" autolimits="true" />
+  <include file="../includes/franka_panda.xml" />
+  <option timestep="0.001" gravity="0 0 -9.81" integrator="implicitfast" solver="Newton" iterations="200" impratio="10" cone="elliptic" density="0" viscosity="0" />
+  <visual>
+    <map znear="0.001" />
+  </visual>
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.9 0.9 1" rgb2="0.2 0.3 0.4" width="128" height="768" />
+    <texture type="2d" name="texplane" file="../libero_base/textures/gray_ceramic_tile.png" />
+    <texture type="cube" name="tex-table" file="../libero_web_lite/textures/martin_novak_wood_table.63038e7e4236a1dc.png" />
+    <texture type="2d" name="tex-wall" file="../libero_web_lite/textures/yellow_linen_wall_texture.40b1a0ef9f8cdefe.png" />
+    <texture type="cube" name="textable" builtin="flat" rgb2="0.8 0.8 0.8" width="128" height="768" />
+    <texture type="2d" name="tex-kitchen_background" file="../libero_web_lite/textures/kitchen_background.f69c6b1a69196503.png" />
+    <texture type="2d" name="tex-kitchen_background_pot" file="../libero_base/scenes/kitchen_background_pot/kitchen_background_pot.png" />
+    <texture type="2d" name="tex-kitchen_background_stove" file="../libero_base/scenes/kitchen_background_stove/kitchen_background_stove.png" />
+    <texture type="2d" name="tex-kitchen_background_fridge" file="../libero_web_lite/textures/metal.c0da3417e21ff782.png" />
+    <texture type="cube" name="microwave_1_T_micro_metal" file="../libero_base/articulated_objects/textures/metal1.png" />
+    <material name="floorplane" texture="texplane" texuniform="true" texrepeat="3 3" specular="0" shininess="0" />
+    <material name="table_texture" texture="tex-table" specular="0.2" shininess="0" />
+    <material name="table_legs" texture="tex-table" shininess="0.8" reflectance="0.8" />
+    <material name="walls_mat" texture="tex-wall" texuniform="true" texrepeat="3 3" specular="0.8" shininess="0.3" />
+    <material name="kitchen_background" texture="tex-kitchen_background" reflectance="0.5" />
+    <material name="kitchen_background_pot" texture="tex-kitchen_background_pot" reflectance="0.5" />
+    <material name="kitchen_background_hot_pot" reflectance="0.5" rgba="0.4 0.4 0.4 1" />
+    <material name="kitchen_background_stove" texture="tex-kitchen_background_stove" reflectance="0.5" />
+    <material name="kitchen_background_fridge" texture="tex-kitchen_background_fridge" reflectance="0.9" />
+    <mesh name="kitchen_background_vis" file="../libero_base/scenes/kitchen_background/visual/kitchen_background_vis.msh" scale="0.01 0.01 0.01" />
+    <mesh name="kitchen_background_pot_vis" file="../libero_base/scenes/kitchen_background_pot/visual/kitchen_background_pot_vis.msh" scale="0.01 0.01 0.01" />
+    <mesh name="kitchen_background_hot_pot_vis" file="../libero_base/scenes/kitchen_background_hot_pot/visual/kitchen_background_hot_pot_vis.msh" scale="0.01 0.01 0.01" />
+    <mesh name="kitchen_background_stove_vis" file="../libero_base/scenes/kitchen_background_stove/visual/kitchen_background_stove_vis.msh" scale="0.01 0.01 0.01" />
+    <mesh name="kitchen_background_fridge_vis" file="../libero_base/scenes/fridge/visual/fridge_vis.msh" scale="0.01 0.01 0.01" />
+    <material name="microwave_0_material_brushed_metal_110f826b" rgba="0.76 0.77 0.8 1" specular="0.28" shininess="0.18" metallic="0.05" roughness="0.62" />
+    <mesh name="microwave_0_part_000_visual_00" file="../tabletopgen/articulategen/microwave/microwave_2/visual/part_000_visual_00.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <material name="microwave_0_material_cabinet_cream_9783e31c" rgba="0.93 0.89 0.79 1" specular="0.28" shininess="0.18" metallic="0.05" roughness="0.62" />
+    <mesh name="microwave_0_part_000_visual_01" file="../tabletopgen/articulategen/microwave/microwave_2/visual/part_000_visual_01.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <material name="microwave_0_material_knob_ivory_d537a5ac" rgba="0.95 0.93 0.86 1" specular="0.28" shininess="0.18" metallic="0.05" roughness="0.62" />
+    <mesh name="microwave_0_part_000_visual_02" file="../tabletopgen/articulategen/microwave/microwave_2/visual/part_000_visual_02.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <material name="microwave_0_material_retro_teal_1f9f94c3" rgba="0.6 0.71 0.69 1" specular="0.28" shininess="0.18" metallic="0.05" roughness="0.62" />
+    <mesh name="microwave_0_part_000_visual_03" file="../tabletopgen/articulategen/microwave/microwave_2/visual/part_000_visual_03.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_part_001_visual_00" file="../tabletopgen/articulategen/microwave/microwave_2/visual/part_001_visual_00.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_part_001_visual_01" file="../tabletopgen/articulategen/microwave/microwave_2/visual/part_001_visual_01.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <material name="microwave_0_material_smoked_glass_627bd590" rgba="0.18 0.23 0.28 0.4" specular="0.28" shininess="0.18" metallic="0.05" roughness="0.62" />
+    <mesh name="microwave_0_part_001_visual_02" file="../tabletopgen/articulategen/microwave/microwave_2/visual/part_001_visual_02.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_000" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_000.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_001" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_001.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_002" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_002.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_003" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_003.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_004" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_004.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_005" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_005.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_006" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_006.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_007" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_007.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_008" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_008.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_009" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_009.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_010" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_010.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_011" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_011.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_012" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_012.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_013" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_013.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_014" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_014.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_015" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_015.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_016" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_016.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_017" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_017.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_018" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_018.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_019" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_019.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_020" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_020.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_021" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_021.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_022" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_022.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_023" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_023.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_024" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_024.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_025" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_025.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_026" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_026.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_027" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_027.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_028" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_028.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_029" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_029.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_030" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_030.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_031" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_031.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_032" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_032.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_033" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_033.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_034" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_034.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_035" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_035.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_036" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_036.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_037" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_037.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_038" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_038.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_039" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_039.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_040" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_040.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_041" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_041.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_042" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_042.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_043" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_043.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_044" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_044.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_045" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_045.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_046" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_046.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_047" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_047.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_048" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_048.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_049" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_049.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_050" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_050.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_051" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_051.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_object_coacd_col_mesh_052" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/object/part_052.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_part_001_door_coacd_col_mesh_000" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/part_001_door/part_000.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_part_001_door_coacd_col_mesh_001" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/part_001_door/part_001.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_part_001_door_coacd_col_mesh_002" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/part_001_door/part_002.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_part_001_door_coacd_col_mesh_003" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/part_001_door/part_003.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_part_001_door_coacd_col_mesh_004" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/part_001_door/part_004.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_part_001_door_coacd_col_mesh_005" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/part_001_door/part_005.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_part_001_door_coacd_col_mesh_006" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/part_001_door/part_006.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_part_001_door_coacd_col_mesh_007" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/part_001_door/part_007.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_part_001_door_coacd_col_mesh_008" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/part_001_door/part_008.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_part_001_door_coacd_col_mesh_009" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/part_001_door/part_009.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_part_001_door_coacd_col_mesh_010" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/part_001_door/part_010.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_part_001_door_coacd_col_mesh_011" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/part_001_door/part_011.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_part_001_door_coacd_col_mesh_012" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/part_001_door/part_012.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_part_001_door_coacd_col_mesh_013" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/part_001_door/part_013.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_part_001_door_coacd_col_mesh_014" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/part_001_door/part_014.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_part_001_door_coacd_col_mesh_015" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/part_001_door/part_015.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_part_001_door_coacd_col_mesh_016" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/part_001_door/part_016.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_part_001_door_coacd_col_mesh_017" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/part_001_door/part_017.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_part_001_door_coacd_col_mesh_018" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/part_001_door/part_018.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_part_001_door_coacd_col_mesh_019" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/part_001_door/part_019.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <mesh name="microwave_0_part_001_door_coacd_col_mesh_020" file="../tabletopgen/articulategen/microwave/microwave_2/visual/coacd_convex/part_001_door/part_020.obj" scale="0.916530284602 0.916530284602 0.916530284602" />
+    <texture file="../tabletopgen/assetgen/screwdriver/screwdriver_4/texture_map.png" name="screwdriver_0_tex-screwdriver_4" type="2d" />
+    <material name="screwdriver_0_screwdriver_4" reflectance="0.5" texrepeat="1 1" texture="screwdriver_0_tex-screwdriver_4" texuniform="false" />
+    <mesh file="../tabletopgen/assetgen/screwdriver/screwdriver_4/visual/screwdriver_4_vis.obj" name="screwdriver_0_screwdriver_4_vis" scale="0.786096295175 0.786096295175 0.786096295175" />
+    <mesh name="screwdriver_0_object_coacd_col_mesh_000" file="../tabletopgen/assetgen/screwdriver/screwdriver_4/visual/coacd_convex/profiles/p6d3761c969a9a9cd-cc48ac87e89dcbae9/object/part_000.obj" scale="0.786096295175 0.786096295175 0.786096295175" />
+    <mesh name="screwdriver_0_object_coacd_col_mesh_001" file="../tabletopgen/assetgen/screwdriver/screwdriver_4/visual/coacd_convex/profiles/p6d3761c969a9a9cd-cc48ac87e89dcbae9/object/part_001.obj" scale="0.786096295175 0.786096295175 0.786096295175" />
+    <mesh name="screwdriver_0_object_coacd_col_mesh_002" file="../tabletopgen/assetgen/screwdriver/screwdriver_4/visual/coacd_convex/profiles/p6d3761c969a9a9cd-cc48ac87e89dcbae9/object/part_002.obj" scale="0.786096295175 0.786096295175 0.786096295175" />
+    <mesh name="screwdriver_0_object_coacd_col_mesh_003" file="../tabletopgen/assetgen/screwdriver/screwdriver_4/visual/coacd_convex/profiles/p6d3761c969a9a9cd-cc48ac87e89dcbae9/object/part_003.obj" scale="0.786096295175 0.786096295175 0.786096295175" />
+    <mesh name="screwdriver_0_object_coacd_col_mesh_004" file="../tabletopgen/assetgen/screwdriver/screwdriver_4/visual/coacd_convex/profiles/p6d3761c969a9a9cd-cc48ac87e89dcbae9/object/part_004.obj" scale="0.786096295175 0.786096295175 0.786096295175" />
+    <mesh name="screwdriver_0_object_coacd_col_mesh_005" file="../tabletopgen/assetgen/screwdriver/screwdriver_4/visual/coacd_convex/profiles/p6d3761c969a9a9cd-cc48ac87e89dcbae9/object/part_005.obj" scale="0.786096295175 0.786096295175 0.786096295175" />
+    <mesh name="screwdriver_0_object_coacd_col_mesh_006" file="../tabletopgen/assetgen/screwdriver/screwdriver_4/visual/coacd_convex/profiles/p6d3761c969a9a9cd-cc48ac87e89dcbae9/object/part_006.obj" scale="0.786096295175 0.786096295175 0.786096295175" />
+    <mesh name="screwdriver_0_object_coacd_col_mesh_007" file="../tabletopgen/assetgen/screwdriver/screwdriver_4/visual/coacd_convex/profiles/p6d3761c969a9a9cd-cc48ac87e89dcbae9/object/part_007.obj" scale="0.786096295175 0.786096295175 0.786096295175" />
+    <mesh name="screwdriver_0_object_coacd_col_mesh_008" file="../tabletopgen/assetgen/screwdriver/screwdriver_4/visual/coacd_convex/profiles/p6d3761c969a9a9cd-cc48ac87e89dcbae9/object/part_008.obj" scale="0.786096295175 0.786096295175 0.786096295175" />
+    <texture name="charger_0_texture_map" type="2d" file="../tabletopgen/assetgen/charger/charger_0/texture_map.png" />
+    <material name="charger_0_visual_material" texture="charger_0_texture_map" reflectance="0.5" />
+    <mesh name="charger_0_visual_mesh" file="../tabletopgen/assetgen/charger/charger_0/visual/charger_0_vis.obj" scale="0.48955046296 0.48955046296 0.48955046296" />
+    <mesh name="charger_0_object_coacd_col_mesh_000" file="../tabletopgen/assetgen/charger/charger_0/visual/coacd_convex/profiles/p6d3761c969a9a9cd-c3bec9193084c17c0/object/part_000.obj" scale="0.48955046296 0.48955046296 0.48955046296" />
+    <texture name="glue_tube_0_texture_map" type="2d" file="../tabletopgen/assetgen/glue_tube/glue_tube_2/texture_map.png" />
+    <material name="glue_tube_0_visual_material" texture="glue_tube_0_texture_map" reflectance="0.5" />
+    <mesh name="glue_tube_0_visual_mesh" file="../tabletopgen/assetgen/glue_tube/glue_tube_2/visual/glue_tube_2_vis.obj" scale="0.697668605078 0.697668605078 0.697668605078" />
+    <mesh name="glue_tube_0_object_coacd_col_mesh_000" file="../tabletopgen/assetgen/glue_tube/glue_tube_2/visual/coacd_convex/profiles/p6d3761c969a9a9cd-c085f911ab52dc30b/object/part_000.obj" scale="0.697668605078 0.697668605078 0.697668605078" />
+  </asset>
+  <custom>
+    <text name="taskgen_environment_preset" data="libero_kitchen_table@v2" />
+  </custom>
+  <worldbody>
+    <geom name="floor" size="3 3 0.125" type="plane" group="1" material="floorplane" />
+    <geom pos="-1.65 0 0.9" quat="0 0 0 1" type="mesh" contype="0" conaffinity="0" group="1" material="kitchen_background_stove" mesh="kitchen_background_stove_vis" />
+    <geom pos="-1.5 0.23 0.93" quat="0.316228 0 0 0.948683" type="mesh" contype="0" conaffinity="0" group="1" material="kitchen_background_hot_pot" mesh="kitchen_background_hot_pot_vis" />
+    <geom pos="-1.85 -0.85 0.9" quat="0 0 0 1" type="mesh" contype="0" conaffinity="0" group="1" material="kitchen_background_pot" mesh="kitchen_background_pot_vis" />
+    <geom pos="-1.75 -2.4 0" quat="0 0 0 1" type="mesh" contype="0" conaffinity="0" group="1" material="kitchen_background_fridge" mesh="kitchen_background_fridge_vis" />
+    <geom pos="-1.65 0 0" quat="0 0 0 1" type="mesh" contype="0" conaffinity="0" group="1" material="kitchen_background" mesh="kitchen_background_vis" />
+    <geom name="wall_left_visual" size="2.5 1.5 0.01" pos="0.5 3 1.5" quat="0.707107 0.707107 0 0" type="box" contype="0" conaffinity="0" group="1" material="walls_mat" />
+    <geom name="wall_right_visual" size="2.5 1.5 0.01" pos="0.5 -3 1.5" quat="0.707107 -0.707107 0 0" type="box" contype="0" conaffinity="0" group="1" material="walls_mat" />
+    <geom name="wall_rear_visual" size="3 1.5 0.01" pos="-2 0 1.5" quat="0.5 0.5 0.5 0.5" type="box" contype="0" conaffinity="0" group="1" material="walls_mat" />
+    <geom name="wall_front_visual" size="3 1.5 0.01" pos="3 0 1.5" quat="0.5 0.5 -0.5 -0.5" type="box" contype="0" conaffinity="0" group="1" material="walls_mat" />
+    <camera name="frontview" pos="1.123734 0 1.0325" quat="0.560842 0.430646 0.430646 0.560842" />
+    <camera name="birdview" pos="-0.076266 0 2.5525" quat="0.707107 0 0 0.707107" />
+    <camera name="agentview" pos="0.782347 0 1.16285" quat="0.638018 0.30485 0.30485 0.638018" />
+    <camera name="sideview" pos="0.067216 1.27612 1.04046" quat="0.00990507 0.00687796 0.591223 0.806418" />
+    <camera name="galleryview" pos="2.968284 2.12797 2.68112" quat="0.422614 0.233744 0.416469 0.770269" />
+    <camera name="paperview" pos="2.223734 0.535 1.6275" quat="0.512987 0.352991 0.442988 0.644983" />
+    <light name="taskgen_fill_directional" directional="true" dir="0 0 -1" castshadow="false" ambient="0.3 0.3 0.3" diffuse="0.3 0.3 0.3" specular="0.3 0.3 0.3" pos="0.723734 0 3.8" />
+    <light name="taskgen_center_spot" directional="false" dir="0 0 -1" cutoff="55" exponent="6" attenuation="1 0 0" castshadow="false" ambient="0.1 0.1 0.1" diffuse="0.9 0.9 0.9" specular="0.3 0.3 0.3" pos="0.723734 0 3.8" />
+    <body name="workspace_support" pos="0.723734 0 0.4275">
+      <geom name="table_collision" size="0.5 0.6 0.025" type="box" rgba="0.5 0.5 0 1" contype="1" conaffinity="15" />
+      <geom name="table_visual" size="0.5 0.6 0.025" type="box" contype="0" conaffinity="0" group="1" material="table_texture" />
+      <geom name="table_leg1_visual" size="0.025 0.4375" pos="0.4 0.5 -0.4375" type="cylinder" contype="0" conaffinity="0" group="1" material="table_legs" />
+      <geom name="table_leg2_visual" size="0.025 0.4375" pos="-0.4 0.5 -0.4375" type="cylinder" contype="0" conaffinity="0" group="1" material="table_legs" />
+      <geom name="table_leg3_visual" size="0.025 0.4375" pos="-0.4 -0.5 -0.4375" type="cylinder" contype="0" conaffinity="0" group="1" material="table_legs" />
+      <geom name="table_leg4_visual" size="0.025 0.4375" pos="0.4 -0.5 -0.4375" type="cylinder" contype="0" conaffinity="0" group="1" material="table_legs" />
+      <site name="workspace_support_surface" type="box" pos="0.000000 0.000000 0.025000" size="0.500000 0.600000 0.001000" rgba="0 0 0 0" />
+    </body>
+    <body name="microwave_0" pos="0.745711 0.420271 0.585581" quat="0.000000 0.000044 -0.000020 -1.000000">
+      <body name="microwave_0__microwave_2__base">
+        <geom name="microwave_0_part_000_visual_00" type="mesh" mesh="microwave_0_part_000_visual_00" material="microwave_0_material_brushed_metal_110f826b" group="2" contype="0" conaffinity="0" density="0" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom name="microwave_0_part_000_visual_01" type="mesh" mesh="microwave_0_part_000_visual_01" material="microwave_0_material_cabinet_cream_9783e31c" group="2" contype="0" conaffinity="0" density="0" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom name="microwave_0_part_000_visual_02" type="mesh" mesh="microwave_0_part_000_visual_02" material="microwave_0_material_knob_ivory_d537a5ac" group="2" contype="0" conaffinity="0" density="0" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom name="microwave_0_part_000_visual_03" type="mesh" mesh="microwave_0_part_000_visual_03" material="microwave_0_material_retro_teal_1f9f94c3" group="2" contype="0" conaffinity="0" density="0" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <body name="microwave_0_part_001_door" pos="0.157687738634 0.0416391764097 0.00267582963246" gravcomp="1">
+          <joint name="microwave_0__microwave_2__joint_001_cabinet_to_door" type="hinge" axis="0 0 1" pos="-0.000231802282702 0.152914955066 -0.0050990666841" limited="true" range="0 1.9" ref="0" damping="0.256380244836" frictionloss="0" armature="0.00129349303511" springref="0.95" stiffness="-0.35893234277" />
+          <geom name="microwave_0_part_001_visual_00" type="mesh" mesh="microwave_0_part_001_visual_00" material="microwave_0_material_brushed_metal_110f826b" group="2" contype="0" conaffinity="0" density="0" pos="-0.146964775731 -0.0453728468915 -0.132003259937" />
+          <geom name="microwave_0_part_001_visual_01" type="mesh" mesh="microwave_0_part_001_visual_01" material="microwave_0_material_retro_teal_1f9f94c3" group="2" contype="0" conaffinity="0" density="0" pos="-0.146964775731 -0.0453728468915 -0.132003259937" />
+          <geom name="microwave_0_part_001_visual_02" type="mesh" mesh="microwave_0_part_001_visual_02" material="microwave_0_material_smoked_glass_627bd590" group="2" contype="0" conaffinity="0" density="0" pos="-0.146964775731 -0.0453728468915 -0.132003259937" />
+          <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_part_001_door_coacd_col_mesh_000" type="mesh" mesh="microwave_0_part_001_door_coacd_col_mesh_000" pos="-0.146964775731 -0.0453728468915 -0.132003259937" />
+          <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_part_001_door_coacd_col_mesh_001" type="mesh" mesh="microwave_0_part_001_door_coacd_col_mesh_001" pos="-0.146964775731 -0.0453728468915 -0.132003259937" />
+          <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_part_001_door_coacd_col_mesh_002" type="mesh" mesh="microwave_0_part_001_door_coacd_col_mesh_002" pos="-0.146964775731 -0.0453728468915 -0.132003259937" />
+          <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_part_001_door_coacd_col_mesh_003" type="mesh" mesh="microwave_0_part_001_door_coacd_col_mesh_003" pos="-0.146964775731 -0.0453728468915 -0.132003259937" />
+          <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_part_001_door_coacd_col_mesh_004" type="mesh" mesh="microwave_0_part_001_door_coacd_col_mesh_004" pos="-0.146964775731 -0.0453728468915 -0.132003259937" />
+          <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_part_001_door_coacd_col_mesh_005" type="mesh" mesh="microwave_0_part_001_door_coacd_col_mesh_005" pos="-0.146964775731 -0.0453728468915 -0.132003259937" />
+          <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_part_001_door_coacd_col_mesh_006" type="mesh" mesh="microwave_0_part_001_door_coacd_col_mesh_006" pos="-0.146964775731 -0.0453728468915 -0.132003259937" />
+          <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_part_001_door_coacd_col_mesh_007" type="mesh" mesh="microwave_0_part_001_door_coacd_col_mesh_007" pos="-0.146964775731 -0.0453728468915 -0.132003259937" />
+          <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_part_001_door_coacd_col_mesh_008" type="mesh" mesh="microwave_0_part_001_door_coacd_col_mesh_008" pos="-0.146964775731 -0.0453728468915 -0.132003259937" />
+          <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_part_001_door_coacd_col_mesh_009" type="mesh" mesh="microwave_0_part_001_door_coacd_col_mesh_009" pos="-0.146964775731 -0.0453728468915 -0.132003259937" />
+          <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_part_001_door_coacd_col_mesh_010" type="mesh" mesh="microwave_0_part_001_door_coacd_col_mesh_010" pos="-0.146964775731 -0.0453728468915 -0.132003259937" />
+          <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_part_001_door_coacd_col_mesh_011" type="mesh" mesh="microwave_0_part_001_door_coacd_col_mesh_011" pos="-0.146964775731 -0.0453728468915 -0.132003259937" />
+          <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_part_001_door_coacd_col_mesh_012" type="mesh" mesh="microwave_0_part_001_door_coacd_col_mesh_012" pos="-0.146964775731 -0.0453728468915 -0.132003259937" />
+          <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_part_001_door_coacd_col_mesh_013" type="mesh" mesh="microwave_0_part_001_door_coacd_col_mesh_013" pos="-0.146964775731 -0.0453728468915 -0.132003259937" />
+          <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_part_001_door_coacd_col_mesh_014" type="mesh" mesh="microwave_0_part_001_door_coacd_col_mesh_014" pos="-0.146964775731 -0.0453728468915 -0.132003259937" />
+          <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_part_001_door_coacd_col_mesh_015" type="mesh" mesh="microwave_0_part_001_door_coacd_col_mesh_015" pos="-0.146964775731 -0.0453728468915 -0.132003259937" />
+          <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_part_001_door_coacd_col_mesh_016" type="mesh" mesh="microwave_0_part_001_door_coacd_col_mesh_016" pos="-0.146964775731 -0.0453728468915 -0.132003259937" />
+          <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_part_001_door_coacd_col_mesh_017" type="mesh" mesh="microwave_0_part_001_door_coacd_col_mesh_017" pos="-0.146964775731 -0.0453728468915 -0.132003259937" />
+          <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_part_001_door_coacd_col_mesh_018" type="mesh" mesh="microwave_0_part_001_door_coacd_col_mesh_018" pos="-0.146964775731 -0.0453728468915 -0.132003259937" />
+          <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_part_001_door_coacd_col_mesh_019" type="mesh" mesh="microwave_0_part_001_door_coacd_col_mesh_019" pos="-0.146964775731 -0.0453728468915 -0.132003259937" />
+          <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_part_001_door_coacd_col_mesh_020" type="mesh" mesh="microwave_0_part_001_door_coacd_col_mesh_020" pos="-0.146964775731 -0.0453728468915 -0.132003259937" />
+        </body>
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_000" type="mesh" mesh="microwave_0_object_coacd_col_mesh_000" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_001" type="mesh" mesh="microwave_0_object_coacd_col_mesh_001" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_002" type="mesh" mesh="microwave_0_object_coacd_col_mesh_002" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_003" type="mesh" mesh="microwave_0_object_coacd_col_mesh_003" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_004" type="mesh" mesh="microwave_0_object_coacd_col_mesh_004" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_005" type="mesh" mesh="microwave_0_object_coacd_col_mesh_005" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_006" type="mesh" mesh="microwave_0_object_coacd_col_mesh_006" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_007" type="mesh" mesh="microwave_0_object_coacd_col_mesh_007" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_008" type="mesh" mesh="microwave_0_object_coacd_col_mesh_008" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_009" type="mesh" mesh="microwave_0_object_coacd_col_mesh_009" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_010" type="mesh" mesh="microwave_0_object_coacd_col_mesh_010" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_011" type="mesh" mesh="microwave_0_object_coacd_col_mesh_011" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_012" type="mesh" mesh="microwave_0_object_coacd_col_mesh_012" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_013" type="mesh" mesh="microwave_0_object_coacd_col_mesh_013" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_014" type="mesh" mesh="microwave_0_object_coacd_col_mesh_014" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_015" type="mesh" mesh="microwave_0_object_coacd_col_mesh_015" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_016" type="mesh" mesh="microwave_0_object_coacd_col_mesh_016" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_017" type="mesh" mesh="microwave_0_object_coacd_col_mesh_017" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_018" type="mesh" mesh="microwave_0_object_coacd_col_mesh_018" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_019" type="mesh" mesh="microwave_0_object_coacd_col_mesh_019" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_020" type="mesh" mesh="microwave_0_object_coacd_col_mesh_020" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_021" type="mesh" mesh="microwave_0_object_coacd_col_mesh_021" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_022" type="mesh" mesh="microwave_0_object_coacd_col_mesh_022" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_023" type="mesh" mesh="microwave_0_object_coacd_col_mesh_023" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_024" type="mesh" mesh="microwave_0_object_coacd_col_mesh_024" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_025" type="mesh" mesh="microwave_0_object_coacd_col_mesh_025" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_026" type="mesh" mesh="microwave_0_object_coacd_col_mesh_026" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_027" type="mesh" mesh="microwave_0_object_coacd_col_mesh_027" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_028" type="mesh" mesh="microwave_0_object_coacd_col_mesh_028" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_029" type="mesh" mesh="microwave_0_object_coacd_col_mesh_029" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_030" type="mesh" mesh="microwave_0_object_coacd_col_mesh_030" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_031" type="mesh" mesh="microwave_0_object_coacd_col_mesh_031" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_032" type="mesh" mesh="microwave_0_object_coacd_col_mesh_032" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_033" type="mesh" mesh="microwave_0_object_coacd_col_mesh_033" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_034" type="mesh" mesh="microwave_0_object_coacd_col_mesh_034" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_035" type="mesh" mesh="microwave_0_object_coacd_col_mesh_035" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_036" type="mesh" mesh="microwave_0_object_coacd_col_mesh_036" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_037" type="mesh" mesh="microwave_0_object_coacd_col_mesh_037" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_038" type="mesh" mesh="microwave_0_object_coacd_col_mesh_038" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_039" type="mesh" mesh="microwave_0_object_coacd_col_mesh_039" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_040" type="mesh" mesh="microwave_0_object_coacd_col_mesh_040" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_041" type="mesh" mesh="microwave_0_object_coacd_col_mesh_041" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_042" type="mesh" mesh="microwave_0_object_coacd_col_mesh_042" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_043" type="mesh" mesh="microwave_0_object_coacd_col_mesh_043" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_044" type="mesh" mesh="microwave_0_object_coacd_col_mesh_044" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_045" type="mesh" mesh="microwave_0_object_coacd_col_mesh_045" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_046" type="mesh" mesh="microwave_0_object_coacd_col_mesh_046" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_047" type="mesh" mesh="microwave_0_object_coacd_col_mesh_047" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_048" type="mesh" mesh="microwave_0_object_coacd_col_mesh_048" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_049" type="mesh" mesh="microwave_0_object_coacd_col_mesh_049" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_050" type="mesh" mesh="microwave_0_object_coacd_col_mesh_050" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_051" type="mesh" mesh="microwave_0_object_coacd_col_mesh_051" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+        <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="microwave_0_object_coacd_col_mesh_052" type="mesh" mesh="microwave_0_object_coacd_col_mesh_052" pos="0.0107229629035 -0.00373367048179 -0.129327430305" />
+      </body>
+    </body>
+    <body name="screwdriver_0" pos="0.758734 -0.050000 0.467183" quat="0.841618 0.000124 0.000323 0.540072">
+      <freejoint name="screwdriver_0_free" />
+      <geom type="mesh" mesh="screwdriver_0_screwdriver_4_vis" group="1" material="screwdriver_0_screwdriver_4" conaffinity="0" contype="0" />
+      <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="screwdriver_0_object_coacd_col_mesh_000" type="mesh" mesh="screwdriver_0_object_coacd_col_mesh_000" />
+      <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="screwdriver_0_object_coacd_col_mesh_001" type="mesh" mesh="screwdriver_0_object_coacd_col_mesh_001" />
+      <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="screwdriver_0_object_coacd_col_mesh_002" type="mesh" mesh="screwdriver_0_object_coacd_col_mesh_002" />
+      <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="screwdriver_0_object_coacd_col_mesh_003" type="mesh" mesh="screwdriver_0_object_coacd_col_mesh_003" />
+      <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="screwdriver_0_object_coacd_col_mesh_004" type="mesh" mesh="screwdriver_0_object_coacd_col_mesh_004" />
+      <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="screwdriver_0_object_coacd_col_mesh_005" type="mesh" mesh="screwdriver_0_object_coacd_col_mesh_005" />
+      <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="screwdriver_0_object_coacd_col_mesh_006" type="mesh" mesh="screwdriver_0_object_coacd_col_mesh_006" />
+      <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="screwdriver_0_object_coacd_col_mesh_007" type="mesh" mesh="screwdriver_0_object_coacd_col_mesh_007" />
+      <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="screwdriver_0_object_coacd_col_mesh_008" type="mesh" mesh="screwdriver_0_object_coacd_col_mesh_008" />
+    </body>
+    <body name="charger_0" pos="0.878734 -0.280000 0.472451" quat="0.999998 -0.000360 0.000158 0.002172">
+      <freejoint name="charger_0_free" />
+      <geom name="charger_0_visual_geom" type="mesh" mesh="charger_0_visual_mesh" material="charger_0_visual_material" group="1" contype="0" conaffinity="0" />
+      <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="charger_0_object_coacd_col_mesh_000" type="mesh" mesh="charger_0_object_coacd_col_mesh_000" />
+    </body>
+    <body name="glue_tube_0" pos="0.473734 -0.145000 0.461581" quat="0.983579 0.006172 0.000734 0.180374">
+      <freejoint name="glue_tube_0_free" />
+      <geom name="glue_tube_0_visual_geom" type="mesh" mesh="glue_tube_0_visual_mesh" material="glue_tube_0_visual_material" group="1" contype="0" conaffinity="0" />
+      <geom group="0" rgba="0 0 0 0" contype="1" conaffinity="1" condim="4" solref="0.004 1" solimp="0.998 0.998 0.001" name="glue_tube_0_object_coacd_col_mesh_000" type="mesh" mesh="glue_tube_0_object_coacd_col_mesh_000" />
+    </body>
+  </worldbody>
+  <contact>
+    <exclude body1="microwave_0__microwave_2__base" body2="microwave_0_part_001_door" />
+  </contact>
+</mujoco>
